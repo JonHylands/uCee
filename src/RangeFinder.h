@@ -1,6 +1,15 @@
 #ifndef RangerFinder_h
 #define RangerFinder_h
 
+/*=========================
+ * 
+ * 		RangerFinder
+ * 
+ *		RangeFinder is a class to support the
+ * 		combination of a GP2Y0A41SK0F and
+ * 		a ProxDot.
+ * 
+ * ========================*/
 
 class RangeFinder
 {

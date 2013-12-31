@@ -18,7 +18,7 @@ MotorDriver rightMotor;
 void setup() {
 	Serial1.begin(serialBaudRate);
 	Serial1.println("uCee Test");
-	rangeFinder.begin(sharpPin, proxDotPin);
+	rangeFinder.begin(rightSharpPin, rightProxDotPin);
 	heartbeat.begin(ledPin, 100, 900);
 	leftMotor.begin(leftPwmPin, leftDirectionPin, leftEnablePin, leftCurrentPin);
 	rightMotor.begin(rightPwmPin, rightDirectionPin, rightEnablePin, rightCurrentPin);
