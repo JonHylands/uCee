@@ -1,31 +1,39 @@
-#include "Arduino.h"
-
-/* LED Blink, Teensyduino Tutorial #1
-	http://www.pjrc.com/teensy/tutorial.html
- 
-	This example code is in the public domain.
+/* 
+		uCee - a Micro Crawler Robot
 */
 
-// Teensy 2.0 has the LED on pin 11
-// Teensy++ 2.0 has the LED on pin 6
-// Teensy 3.0 has the LED on pin 13
-const int ledPin = 13;
+#include <Arduino.h>
+#include <Metro.h>
+#include "RangeFinder.h"
+#include "HeartbeatLED.h"
 
-// the setup() method runs once, when the sketch starts
+// Teensy 3.1 has the LED on pin 13
+const int ledPin = 13;
+const int serialBaudRate = 115200;
+
+const int sharpPin = 21;
+const int proxDotPin = 20;
+
+RangeFinder rangeFinder;
+HeartbeatLED heartbeat;
+Metro rangeTimer = Metro(100);
 
 void setup() {
 	// initialize the digital pin as an output.
-	pinMode(ledPin, OUTPUT);
-	Serial1.begin(57600);
-	Serial1.println("LED Blink Test");
+	Serial1.begin(serialBaudRate);
+	Serial1.println("uCee Range Test");
+	rangeFinder.begin(sharpPin, proxDotPin);
+	heartbeat.begin(ledPin, 100, 900);
 }
 
 // the loop() methor runs over and over again,
 // as long as the board has power
 
 void loop() {
-	digitalWrite(ledPin, HIGH);   // set the LED on
-	delay(100);                  // wait for a second
-	digitalWrite(ledPin, LOW);    // set the LED off
-	delay(900);                  // wait for a second
+	heartbeat.update();
+	if (rangeTimer.check()) {
+		int distance = rangeFinder.getDistance();
+		Serial1.print("Distance: ");
+		Serial1.println(distance);
+	}
 }

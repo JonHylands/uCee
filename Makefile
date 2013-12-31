@@ -25,7 +25,7 @@ TOOLSPATH = ../../Arduino/hardware/tools
 COREPATH = ../../Arduino/hardware/teensy/cores/teensy3
 
 # path location for Arduino libraries
-LIBRARYPATH = libraries
+LIBRARYPATH = ./libraries
 
 # path location for the arm-none-eabi compiler
 COMPILERPATH = $(TOOLSPATH)/arm-none-eabi/bin
