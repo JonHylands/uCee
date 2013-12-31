@@ -27,10 +27,10 @@ int RangeFinder::getDistance()
 	float voltage = value * 0.0032258; // 0-1023 -> 0-3.3 volts
 	float exactDistance = (100 * ((1.25 / voltage) - 0.15));
 	int distance = (int)exactDistance;
-	if (distance > 200)
+	int proxDot = digitalRead(_proxDotPin); // ProxDots read active low
+	if ((distance > 200) && proxDot) // if both sensors read nothing close
 		return -1;
 
-	int proxDot = digitalRead(_proxDotPin); // ProxDots read active low
 	if (!proxDot)
 		distance = max(0, 55 - distance);
 	return distance;
