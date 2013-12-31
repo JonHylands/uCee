@@ -14,6 +14,8 @@ HeartbeatLED heartbeat;
 Metro rangeTimer = Metro(100);
 MotorDriver leftMotor;
 MotorDriver rightMotor;
+Encoder leftEncoder = Encoder(leftEncoderAPin, leftEncoderBPin);
+Encoder rightEncoder = Encoder(rightEncoderAPin, rightEncoderBPin);
 
 void setup() {
 	Serial1.begin(serialBaudRate);
@@ -31,6 +33,11 @@ void loop() {
 	heartbeat.update();
 	if (rangeTimer.check()) {
 		int distance = rangeFinder.getDistance();
+		int speed = distance;
+		if (speed < 0)
+			speed = 0;
+		float motorSpeed = (float)speed / 200.0;
+		leftMotor.setSpeed(motorSpeed);
 		Serial1.print("Distance: ");
 		Serial1.println(distance);
 	}
