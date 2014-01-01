@@ -11,12 +11,13 @@
  * 
  * ========================*/
 
-class RangeFinder
-{
+class RangeFinder {
+
 public:
 	RangeFinder();
 	void begin(int rangePin, int proxDotPin);
 	int getDistance();
+
 private:
 	int _rangePin;
 	int _proxDotPin;

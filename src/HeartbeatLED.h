@@ -3,13 +3,14 @@
 
 #include <Metro.h>
 
-class HeartbeatLED
-{
+class HeartbeatLED {
+
 public:
 	HeartbeatLED();
 	void begin(int ledPin, int onInterval, int offInterval);
 	void update();
 	void end();
+
 private:
 	int _ledPin;
 	int _onInterval;

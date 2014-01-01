@@ -6,13 +6,14 @@ const int motorPwmResolution = 10;
 const int motorPwmFactor = 1023;
 const float motorCurrentFactor = 1023.0;
 
-class MotorDriver
-{
+class MotorDriver {
+
 public:
 	MotorDriver();
 	void begin(int pwmPin, int directionPin, int enablePin, int currentPin);
 	void setSpeed(float speed);
 	float getCurrent();
+
 private:
 	int _pwmPin;
 	int _directionPin;

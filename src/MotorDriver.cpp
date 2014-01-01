@@ -3,12 +3,10 @@
 #include "MotorDriver.h"
 
 
-MotorDriver::MotorDriver()
-{
+MotorDriver::MotorDriver() {
 }
 
-void MotorDriver::begin(int pwmPin, int directionPin, int enablePin, int currentPin)
-{
+void MotorDriver::begin(int pwmPin, int directionPin, int enablePin, int currentPin) {
 	_pwmPin = pwmPin;
 	_directionPin = directionPin;
 	_enablePin = enablePin;
@@ -29,8 +27,7 @@ void MotorDriver::begin(int pwmPin, int directionPin, int enablePin, int current
 	_previousSpeed = 0;
 }
 
-void MotorDriver::setSpeed(float speed)
-{
+void MotorDriver::setSpeed(float speed) {
 	int newSpeed = (int)(speed * motorPwmFactor);
 	if (newSpeed != _previousSpeed) {
 		if (newSpeed >= 0) {
@@ -44,8 +41,7 @@ void MotorDriver::setSpeed(float speed)
 	}
 }
 
-float MotorDriver::getCurrent()
-{
+float MotorDriver::getCurrent() {
 	int value = analogRead(_currentPin);
 	return (float)value / motorCurrentFactor;
 }

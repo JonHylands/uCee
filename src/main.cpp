@@ -34,9 +34,6 @@ void setup() {
 	rightMotor.begin(rightPwmPin, rightDirectionPin, rightEnablePin, rightCurrentPin);
 }
 
-// the loop() methor runs over and over again,
-// as long as the board has power
-
 void loop() {
 	heartbeat.update();
 	if (rangeTimer.check()) {
