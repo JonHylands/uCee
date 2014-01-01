@@ -10,15 +10,18 @@
 #include "MotorDriver.h"
 #include "main.h"
 
+// Sensor and Actuator Objects
 RangeFinder leftRangeFinder;
 RangeFinder rightRangeFinder;
 RangeFinder frontRangeFinder;
-HeartbeatLED heartbeat;
-Metro rangeTimer = Metro(100);
 MotorDriver leftMotor;
 MotorDriver rightMotor;
 Encoder leftEncoder = Encoder(leftEncoderAPin, leftEncoderBPin);
 Encoder rightEncoder = Encoder(rightEncoderAPin, rightEncoderBPin);
+
+// Other Misc Objects
+HeartbeatLED heartbeat;
+Metro cycleTimer = Metro(100);
 
 void setup() {
 	Serial1.begin(serialBaudRate);
@@ -28,19 +31,19 @@ void setup() {
 	rightRangeFinder.begin(rightSharpPin, rightProxDotPin);
 	frontRangeFinder.begin(frontSharpPin, frontProxDotPin);
 
-	heartbeat.begin(ledPin, 100, 900);
-
 	leftMotor.begin(leftPwmPin, leftDirectionPin, leftEnablePin, leftCurrentPin);
 	rightMotor.begin(rightPwmPin, rightDirectionPin, rightEnablePin, rightCurrentPin);
+	
+	heartbeat.begin(ledPin, 100, 900);
 }
 
 void loop() {
 	heartbeat.update();
-	if (rangeTimer.check()) {
+	if (cycleTimer.check()) {
 		int distance = rightRangeFinder.getDistance();
 		int speed = distance;
 		if (speed < 0)
-			speed = 0;
+			speed = 200;
 		float motorSpeed = (float)speed / 200.0;
 		leftMotor.setSpeed(motorSpeed);
 		Serial1.print("Distance: ");

@@ -24,8 +24,8 @@ const int leftPwmPin = 10;
 const int leftDirectionPin = 11;
 const int leftEnablePin = 12;
 
-const int leftCurrentPin = 15;
 const int rightCurrentPin = 14;
+const int leftCurrentPin = 15;
 
 const int voltageCheckPin = 16;
 
