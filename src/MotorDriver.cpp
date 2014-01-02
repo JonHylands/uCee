@@ -19,7 +19,7 @@ void MotorDriver::begin(int pwmPin, int directionPin, int enablePin, int current
 	_pidSetpoint = 0.0;
 	_pidInput = 0.0;
 // 	_motorPID = PID(&_pidInput, &_pidOutput, &pidSetpoint, pidKp, pidKi, pidKd, DIRECT);
-	_motorPID..SetMode(AUTOMATIC);
+	_motorPID.SetMode(AUTOMATIC);
 	_encoderLastCount = 0;
 
 	pinMode(_pwmPin, OUTPUT);
@@ -45,7 +45,7 @@ void MotorDriver::begin(int pwmPin, int directionPin, int enablePin, int current
  * 
  * ================================*/
 
-void MotorDrive::setSpeed(int16_t speed) {
+void MotorDriver::setSpeed(int16_t speed) {
 	_pidInput = (double)speed;
 }
 
