@@ -13,8 +13,8 @@
 RangeFinder leftRangeFinder;
 RangeFinder rightRangeFinder;
 RangeFinder frontRangeFinder;
-MotorDriver leftMotor;
-MotorDriver rightMotor;
+MotorDriver leftMotor = MotorDriver(leftEncoderAPin, leftEncoderBPin);
+MotorDriver rightMotor = MotorDriver(rightEncoderAPin, rightEncoderBPin);
 
 // Other Misc Objects
 HeartbeatLED heartbeat;
@@ -28,8 +28,8 @@ void setup() {
 	rightRangeFinder.begin(rightSharpPin, rightProxDotPin);
 	frontRangeFinder.begin(frontSharpPin, frontProxDotPin);
 
-	leftMotor.begin(leftPwmPin, leftDirectionPin, leftEnablePin, leftCurrentPin, leftEncoderAPin, leftEncoderBPin);
-	rightMotor.begin(rightPwmPin, rightDirectionPin, rightEnablePin, rightCurrentPin, rightEncoderAPin, rightEncoderBPin);
+	leftMotor.begin(leftPwmPin, leftDirectionPin, leftEnablePin, leftCurrentPin);
+	rightMotor.begin(rightPwmPin, rightDirectionPin, rightEnablePin, rightCurrentPin);
 	
 	heartbeat.begin(ledPin, 100, 900);
 }
