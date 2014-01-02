@@ -4,7 +4,6 @@
 
 #include <Arduino.h>
 #include <Metro.h>
-#include <Encoder.h>
 #include "RangeFinder.h"
 #include "HeartbeatLED.h"
 #include "MotorDriver.h"
@@ -16,8 +15,6 @@ RangeFinder rightRangeFinder;
 RangeFinder frontRangeFinder;
 MotorDriver leftMotor;
 MotorDriver rightMotor;
-Encoder leftEncoder = Encoder(leftEncoderAPin, leftEncoderBPin);
-Encoder rightEncoder = Encoder(rightEncoderAPin, rightEncoderBPin);
 
 // Other Misc Objects
 HeartbeatLED heartbeat;
@@ -31,8 +28,8 @@ void setup() {
 	rightRangeFinder.begin(rightSharpPin, rightProxDotPin);
 	frontRangeFinder.begin(frontSharpPin, frontProxDotPin);
 
-	leftMotor.begin(leftPwmPin, leftDirectionPin, leftEnablePin, leftCurrentPin);
-	rightMotor.begin(rightPwmPin, rightDirectionPin, rightEnablePin, rightCurrentPin);
+	leftMotor.begin(leftPwmPin, leftDirectionPin, leftEnablePin, leftCurrentPin, leftEncoderAPin, leftEncoderBPin);
+	rightMotor.begin(rightPwmPin, rightDirectionPin, rightEnablePin, rightCurrentPin, rightEncoderAPin, rightEncoderBPin);
 	
 	heartbeat.begin(ledPin, 100, 900);
 }
@@ -44,13 +41,10 @@ void loop() {
 		int speed = range;
 		if (speed < 0)
 			speed = 200;
-		float motorSpeed = (float)speed / 200.0;
-		long int count = rightEncoder.read();
-		rightMotor.setSpeed(motorSpeed);
+		rightMotor.setSpeed(speed);
+		rightMotor.update();
 		float current = rightMotor.getCurrent();
 		Serial1.print("Current: ");
-		Serial1.print(current * 1000);
-		Serial1.print(" count: ");
-		Serial1.println(count);
+		Serial1.println(current * 1000);
 	}
 }
