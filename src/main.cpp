@@ -40,13 +40,17 @@ void setup() {
 void loop() {
 	heartbeat.update();
 	if (cycleTimer.check()) {
-		int distance = rightRangeFinder.getDistance();
-		int speed = distance;
+		int range = rightRangeFinder.getDistance();
+		int speed = range;
 		if (speed < 0)
 			speed = 200;
 		float motorSpeed = (float)speed / 200.0;
-		leftMotor.setSpeed(motorSpeed);
-		Serial1.print("Distance: ");
-		Serial1.println(distance);
+		long int count = rightEncoder.read();
+		rightMotor.setSpeed(motorSpeed);
+		float current = rightMotor.getCurrent();
+		Serial1.print("Current: ");
+		Serial1.print(current * 1000);
+		Serial1.print(" count: ");
+		Serial1.println(count);
 	}
 }
