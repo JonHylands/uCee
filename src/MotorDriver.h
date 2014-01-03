@@ -9,18 +9,20 @@ const int motorPwmResolution = 10;
 const int motorPwmFactor = 1023;
 const float motorCurrentFactor = 1023.0;
 
-const double pidKp = 2.0;
-const double pidKi = 5.0;
-const double pidKd = 1.0;
+const double pidKp = 0.25;
+const double pidKi = 0.75;
+const double pidKd = 0.01;
 
-const double encoderToPidRatio = 1.948;
+const double encoderToPidRatio = 0.487;
 
 class MotorDriver {
 
 public:
 	MotorDriver(int encoderAPin, int encoderBPin);
 	void begin(int pwmPin, int directionPin, int enablePin, int currentPin);
-	void setSpeed(int16_t speed);
+	void setDesiredSpeed(int16_t speed);
+	void setPID(uint16_t p, uint16_t i, uint16_t d);
+	void displayEncoder();
 	void update();
 	float getCurrent();
 

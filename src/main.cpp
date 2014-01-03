@@ -36,15 +36,12 @@ void setup() {
 
 void loop() {
 	heartbeat.update();
+	uint16_t speed = 400; // mm/s
+	rightMotor.setDesiredSpeed(speed);
 	if (cycleTimer.check()) {
-		int range = rightRangeFinder.getDistance();
-		int speed = range;
-		if (speed < 0)
-			speed = 200;
-		rightMotor.setSpeed(speed);
+// 		speed = analogRead(23) / 2;
+// 		Serial1.println(speed);
+		rightMotor.setDesiredSpeed(speed);
 		rightMotor.update();
-		float current = rightMotor.getCurrent();
-		Serial1.print("Current: ");
-		Serial1.println(current * 1000);
 	}
 }
